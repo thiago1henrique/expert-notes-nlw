@@ -5,9 +5,11 @@ import { X } from "lucide-react";
 
 interface NoteCardProps {
 	note: {
+		id: string;
 		date: Date;
 		content: string;
-	};
+	}
+	onNoteDeleted: (id:string) => void
 }
 
 export function NoteCard(props: NoteCardProps) {
@@ -22,7 +24,7 @@ export function NoteCard(props: NoteCardProps) {
 
 			<Dialog.Portal>
 				<Dialog.Overlay className="inset-0 fixed bg-black/40">
-					<Dialog.Content className="fixed overflow-hidden left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 max-w-[640px] h-[60vh] w-full bg-slate-700 rounded-md flex flex-col outline-none">
+					<Dialog.Content className="fixed overflow-hidden inset-0 md:auto  md:left-1/2 md:top-1/2 md:-translate-y-1/2 md:-translate-x-1/2 md:max-w-[640px] md:h-[60vh] w-full bg-slate-700 md:rounded-md flex flex-col outline-none">
 						<Dialog.Close className="absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400">
 							<X className="size-5 hover:text-slate-100"/>
 						</Dialog.Close>
@@ -34,8 +36,8 @@ export function NoteCard(props: NoteCardProps) {
 							<p className="text-sm leading-6 text-slate-300">{props.note.content}</p>
 						</div>
 
-						<button type="button" className="w-full bg-slate-800 py-4 text-center text-sm group">
-							Deseja{" "}
+						<button type="button" onClick={() => props.onNoteDeleted(props.note.id)} className="w-full bg-slate-800 py-4 text-center text-sm group">
+							Deseja {" "}
 							<span
 								className="text-red-400 group-hover:underline
 						"
